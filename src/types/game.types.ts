@@ -18,8 +18,19 @@ export interface Question {
 
 export type QuestionBank = Record<Difficulty, Question[]>;
 
-/** idle = layar Start, finished = layar Game Over. */
-export type GameStatus = "idle" | "answering" | "feedback" | "finished";
+export type GameStatus = "menu" | "levels" | "answering" | "feedback" | "finished";
+
+export interface Level {
+  id: number;
+  name: string;
+  difficulty: Difficulty;
+  questions: Question[];
+}
+
+export interface LevelProgress {
+  stars: number;
+  best: number;
+}
 
 export interface RoundResult {
   correct: boolean;

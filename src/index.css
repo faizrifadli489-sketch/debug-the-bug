@@ -7,7 +7,7 @@
     color-scheme: dark;
   }
   body {
-    @apply bg-slate-950 text-slate-100 antialiased;
+    @apply bg-black font-mono text-white antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }

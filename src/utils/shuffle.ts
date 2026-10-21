@@ -1,6 +1,12 @@
-import type { Difficulty, Question, QuestionBank } from "../types/game.types";
+import type { Difficulty, Level, Question, QuestionBank } from "../types/game.types";
 
 export const DIFFICULTY_ORDER: Difficulty[] = ["typo", "syntax", "logic"];
+
+export const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  typo: "Typo",
+  syntax: "Syntax",
+  logic: "Logic",
+};
 
 export const BASE_POINTS: Record<Difficulty, number> = {
   typo: 100,
@@ -18,9 +24,17 @@ export function shuffle<T>(items: readonly T[]): T[] {
   return arr;
 }
 
-/** Susun satu sesi: acak di dalam tiap level, urut dari mudah ke sulit. */
-export function buildRound(bank: QuestionBank, perLevel: number): Question[] {
-  return DIFFICULTY_ORDER.flatMap((d) => shuffle(bank[d]).slice(0, perLevel));
+/** Pecah bank soal jadi level berurutan: tiap tingkat kesulitan dibagi per `size` soal. */
+export function buildLevels(bank: QuestionBank, size: number): Level[] {
+  let id = 0;
+  return DIFFICULTY_ORDER.flatMap((d) =>
+    Array.from({ length: Math.ceil(bank[d].length / size) }, (_, i) => ({
+      id: id++,
+      name: `${DIFFICULTY_LABEL[d]} ${i + 1}`,
+      difficulty: d,
+      questions: bank[d].slice(i * size, (i + 1) * size),
+    })),
+  );
 }
 
 /**

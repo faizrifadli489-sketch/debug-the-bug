@@ -12,4 +12,3 @@ npm run build
 - Tambah soal di `src/data/questions.ts`. `bugLine` mulai dari 1.
 - Skor: poin dasar (100/150/200) + bonus kecepatan sampai 50%, dikali streak (+10% per streak, maks +50%).
 - Efek suara disintesis lewat Web Audio (`src/utils/sound.ts`), jadi `public/sounds/` kosong.
-# debug-the-bug
